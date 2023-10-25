@@ -16,8 +16,8 @@ npm run dev
 
 ## Como ejecutar con Docker
 ```bash
-docker build -t my-express-app .
-docker run -p 3001:3001 my-express-app
+docker build -t my-nextjs-app .
+docker run -p 3000:3000 my-nextjs-app
 ```
 
 Abrir [http://localhost:3000/login](http://localhost:3000/login) con tu navegador para visualizar la aplicación
