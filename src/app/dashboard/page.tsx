@@ -31,16 +31,22 @@ export default function Dashboard() {
 
 
     useEffect(() => {
-        getUsers().then((res: IHttpRes<IUser[]>) => {
-            console.log(res)
-            setUsers(res.data)
-        }).catch((err) => {
-            throw new Error(err);
-        });
+        if (window.sessionStorage.getItem('a')) {
+            getUsers().then((res: IHttpRes<IUser[]>) => {
+                console.log(res)
+                setUsers(res.data)
+            }).catch((err) => {
+                throw new Error(err);
+            });
+        } else {
+            const callbackUrl = searchParams.get("callbackUrl") || `/login`;
 
+            router.push(callbackUrl);
+
+        }
         return () => {
-
         };
+
     }, []);
 
     const onUserDetail = (id: number) => {

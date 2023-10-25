@@ -30,12 +30,18 @@ export default function UserDetail({ params }: {
     const router = useRouter();
     const searchParams = useSearchParams();
     useEffect(() => {
-        getUser(+params.id).then((res: IHttpRes<IUser>) => {
-            console.log(res)
-            setUser(res.data)
-        }).catch((err) => {
-            throw new Error(err);
-        });
+        if (window.sessionStorage.getItem('a')) {
+            getUser(+params.id).then((res: IHttpRes<IUser>) => {
+                console.log(res)
+                setUser(res.data)
+            }).catch((err) => {
+                throw new Error(err);
+            });
+        } else {
+            const callbackUrl = searchParams.get("callbackUrl") || `/login`;
+
+            router.push(callbackUrl);
+        }
 
         return () => {
 

@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from "next/navigation";
 
 export default function Create() {
@@ -12,6 +12,20 @@ export default function Create() {
     });
     const router = useRouter();
     const searchParams = useSearchParams();
+
+
+    useEffect(() => {
+        if (window.sessionStorage.getItem('a')) {
+        } else {
+            const callbackUrl = searchParams.get("callbackUrl") || `/login`;
+
+            router.push(callbackUrl);
+
+        }
+        return () => {
+        };
+
+    }, []);
 
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,6 +53,7 @@ export default function Create() {
             console.log('Error al crear el Usuario');
         }
     };
+
 
     return (
         <main className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
